@@ -1,21 +1,18 @@
-
-import './App.css'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
+import "./App.css";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-
-
   return (
     <>
-    
-      <Navbar/>
-      <Sidebar/>
-      <Footer/>
-
+      <div className="mx-5">
+        <Navbar />
+        <Sidebar />
+        <Footer />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

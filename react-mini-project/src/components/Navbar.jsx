@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <>
     
-    <p>Navbar</p>
+    <p className='bg-blue-500'>Navbar</p>
     </>
   )
 }
