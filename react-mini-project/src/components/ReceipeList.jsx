@@ -14,7 +14,7 @@ function Receipe() {
     setDisplayVariable(filtteredReceipe);
   };
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       {displayVariable.map((elements) => {
         return (
           <div>

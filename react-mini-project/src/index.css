@@ -1,2 +1,14 @@
 @import "tailwindcss";
 
+@layer base {
+    p {
+      @apply text-base;
+    }
+  }
+
+  @layer base {
+    button {
+      @apply text-lg; /* Apply small text size to all <button> elements */
+    }
+  }
+  
