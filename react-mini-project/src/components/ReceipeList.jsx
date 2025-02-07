@@ -8,11 +8,14 @@ function Receipe(props) {
   return (
     <div className="flex flex-col">
       {props.receipeArr.map((elements) => {
+        
         return (
+          
           <div>
+            
             <ReceipeCard receipeData = {elements}
-              key = {elements.id}
-              callbackToDelete = {props.callbackToDelete}
+            key = {elements.id}
+            callbackToDelete = {props.callbackToDelete}
             />
           </div>
         );

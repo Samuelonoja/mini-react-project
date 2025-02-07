@@ -1,11 +1,16 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-function ReceipeDetail() {
+function ReceipeDetail(props) {
 
     const {receipeId} = useParams();
+    
+    const ListsOfReceipeDetails = props.receipeArr.find((receipeObj)=>{
+        return receipeObj.Id === parseInt(receipeId)
+    });
   return (
-    <div>ReceipeDetail</div>
+    <div>ReceipeDetail {receipeId}</div>
+    
   )
 }
 

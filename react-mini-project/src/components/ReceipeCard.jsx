@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ReceipeCard(props) {
   return (
@@ -12,7 +13,10 @@ function ReceipeCard(props) {
 
         <div className="flex gap-5">
         <button onClick={() => props.callbackToDelete(props.receipeData.id)}>Delete</button>
-        <button>More Info</button> 
+
+        <Link to={`/Receipe/${props.receipeData.id}`}>
+        <button>More Info</button>
+        </Link> 
         </div>
         
       </div>

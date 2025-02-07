@@ -1,17 +1,16 @@
 import React from "react";
 import { HomeIcon } from "@heroicons/react/20/solid";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
-import Receipe from "./ReceipeList";
+import ReceipeList from "./ReceipeList";
 import { useState } from "react";
-import ReceipeList from "../data/ReceipeList.json";
+import ReceipeArr from "../data/ReceipeList.json";
 import { NavLink, Route, Routes } from "react-router-dom";
-import ReceipeDetail from "../components/ReceipeDetail"
+import ReceipeDetail from "./ReceipeDetail";
 
-function Sidebar() {
+function Main() {
+  const [displayVariable, setDisplayVariable] = useState(ReceipeArr);
 
-   const [displayVariable, setDisplayVariable] = useState(ReceipeList);
-
-   const RemoveReceipe = (id) => {
+  const RemoveReceipe = (id) => {
     const filtteredReceipe = displayVariable.filter(function (element) {
       return element.id !== id;
     });
@@ -19,13 +18,12 @@ function Sidebar() {
     setDisplayVariable(filtteredReceipe);
   };
 
-  
-     <Routes> 
-        {/* <NavLink to ="/<Sidebar />">Home</NavLink> */}
-        {/* <Route path="/" element = {homepage}/> */}
-        <Route path="/Receipe/:receipeId" element = {<ReceipeDetail receipeArr = {displayVariable}/>}/>
-        {/* <Route path="/ContactUs" element = {Contact-Us}/> */}
-      </Routes>
+  <Routes>
+    <Route
+      path="/Receipe/:receipeId"
+      element={<ReceipeDetail receipeArr={displayVariable} />}
+    />
+  </Routes>;
 
   return (
     <>
@@ -47,13 +45,26 @@ function Sidebar() {
           </div>
         </div>
 
-        {/* sidebar extra display space e.g dashboard */}
-        <div className="bg-purple-500 p-8 text-white text-4xl w-full">
-          <Receipe receipeArr = {displayVariable} callbackToDelete = {RemoveReceipe}/>
-        </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="bg-purple-500 p-8 text-white text-4xl w-full">
+                <ReceipeList
+                  receipeArr={displayVariable}
+                  callbackToDelete={RemoveReceipe}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/recipes/:recipeId"
+            element={<ReceipeDetail receipeArr={displayVariable} />}
+          />
+        </Routes>
       </div>
     </>
   );
 }
 
-export default Sidebar;
+export default Main;
