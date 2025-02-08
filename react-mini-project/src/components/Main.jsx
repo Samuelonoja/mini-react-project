@@ -8,6 +8,7 @@ import { Link, NavLink, Route, Routes } from "react-router-dom";
 import ReceipeDetail from "./ReceipeDetail";
 import AboutUs from "./AboutUs";
 import AddNewRec from "./AddNewRec";
+import ErrorPage404 from "./ErrorPage404";
 
 function Main() {
   const [displayVariable, setDisplayVariable] = useState(ReceipeArr);
@@ -62,6 +63,7 @@ function Main() {
 
          <Route path="/aboutus" element={<AboutUs/>}/>
          <Route path="/addreceipe" element={<AddNewRec/>}/>
+         <Route path="*" element={<ErrorPage404/>}/>
         </Routes>
       </div>
     </>
