@@ -9,13 +9,11 @@ import ReceipeDetail from "./ReceipeDetail";
 import AboutUs from "./AboutUs";
 import AddNewRec from "./AddNewRec";
 import ErrorPage404 from "./ErrorPage404";
+import { v4 as uuidv4 } from 'uuid';
+import UpdateRec from "./UpdateRec";
 
 function Main() {
   const [displayVariable, setDisplayVariable] = useState(ReceipeArr);
-  const [name, setName] = useState("");
-  const [calories, setCalories] = useState("");
-  const [image, setImage] = useState("");
-  const [serving, setServing] = useState("");
 
   const RemoveReceipe = (id) => {
     const filtteredReceipe = displayVariable.filter(function (element) {
@@ -25,37 +23,48 @@ function Main() {
     setDisplayVariable(filtteredReceipe);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const addRecipe = (newReceipes) => {
+    // const receipeId = displayVariable.map((receipe) => receipe.id);
+    // const maxReceipeId = Math.max(...receipeId);
+    // const nextReceipeId = maxReceipeId + 1;
 
-    
-    const receipeId = displayVariable.map((receipe) => receipe.id)
-    const maxReceipeId = Math.max(...receipeId);
-    const nextReceipeId = maxReceipeId + 1;
+    const nextReceipeId = uuidv4();
     console.log(nextReceipeId);
 
-    const newReceipes = {
+    const addRecipe = {
+      ...newReceipes,
       id: nextReceipeId,
-      name: name,
-      calories: calories,
-      image: image,
-      serving: serving,
     };
 
-    const newReceipeList = [newReceipes, ...displayVariable];
+    const newReceipeList = [addRecipe, ...displayVariable];
 
     setDisplayVariable(newReceipeList);
+    //Toast
+  };
 
-    setName("");
-    setCalories("");
-    setImage("");
-    setServing("");
+  const updateRecipe = (newReceipes) => {
+
+    const updateRecipe = {
+      ...newReceipes,
+    };
+ 
+    const recipeIds = displayVariable.map(recipe => recipe.id); 
+
+    if (recipeIds.includes(updateRecipe.id)) {
+      const updatedRecipeList = displayVariable.map(recipe =>
+        recipe.id === updateRecipe.id ? updateRecipe : recipe
+      );
+  
+      setDisplayVariable(updatedRecipeList);
+       //Toast
+    }  
+   
   };
 
   return (
     <>
       <div className="flex">
-        <div className="flex flex-col bg-pink-500 w-64 justify-start max-h-full ">
+        <div className="flex flex-col bg-pink-500 w-64 justify-start min-h-full ">
           <div className="mt-15">
             <hr className="text-white" />
             <ul>
@@ -82,75 +91,6 @@ function Main() {
               </button>
             </Link>
           </div>
-
-          <section>
-            <div className="bg-green-500 flex flex-col justify-center width-auto">
-              <form
-                onSubmit={handleSubmit}
-                className=" p-6 rounded-lg shadow-lg "
-              >
-                <label>
-                  <input
-                    type="text"
-                    name="rcName"
-                    placeholder="Receipe Name"
-                    value={name}
-                    required={true}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                  />
-                </label>
-
-                <label>
-                <input
-                  type="number"
-                  name="rcCalories"
-                  placeholder="Calories"
-                  min={1}
-                  max={500}
-                  value={calories}
-                  required={true}
-                  onChange={(e) => {
-                    setCalories(e.target.value);
-                  }}
-                />
-                </label>
-               
-
-                <label>
-                <input
-                  type="text"
-                  name="rcImage"
-                  placeholder="Image Url"
-                  value={image}
-                  onChange={(e) => {
-                    setImage(e.target.value);
-                  }}
-                />
-                </label>
-                
-
-                <label>
-                <input
-                  type="text"
-                  name="rcServings"
-                  placeholder="Servings"
-                  min={1}
-                  max={20}
-                  value={serving}
-                  required={true}
-                  onChange={(e) => {
-                    setServing(e.target.value);
-                  }}
-                />
-                </label>
-                
-                <button className="text-white">Submit</button>
-              </form>
-            </div>
-          </section>
-
         </div>
 
         <Routes>
@@ -171,7 +111,12 @@ function Main() {
           />
 
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/addreceipe" element={<AddNewRec />} />
+          <Route
+            path="/addreceipe"
+            element={<AddNewRec callbackToAdd={addRecipe} />}
+          />
+          <Route path="/updaterec/:receipeId/:receipeName/:receipeCal/:receipeServ/:receipeImage" element = {<UpdateRec callbackToUpdate={updateRecipe}/>}/>
+        
           <Route path="*" element={<ErrorPage404 />} />
         </Routes>
       </div>

@@ -25,6 +25,10 @@ function ReceipeCard(props) {
           <Link to={`/Receipe/${props.receipeData.id}`}>
             <button>More Info</button>
           </Link>
+
+          <Link to={`/updaterec/${props.receipeData.id}/${props.receipeData.name}/${props.receipeData.calories}/${props.receipeData.servings}/${encodeURIComponent (props.receipeData.image)}/`}>
+          <button>Update</button>
+          </Link>
         </div>
       </div>
     </>

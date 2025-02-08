@@ -1,25 +1,30 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams  } from "react-router-dom";
 
-function AddNewRec(props) {
-  const [name, setName] = useState("");
-  const [calories, setCalories] = useState("");
-  const [image, setImage] = useState("");
-  const [serving, setServing] = useState("");
+function UpdateRec(props) {
+
+  const { receipeId, receipeName, receipeCal, receipeImage, receipeServ } = useParams();
+  const [name, setName] = useState(receipeName);
+  const [calories, setCalories] = useState(receipeCal);
+  const [image, setImage] = useState(receipeImage);
+  const [serving, setServing] = useState(receipeServ);
+
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newReceipes = {
+      id: receipeId,
       name: name,
-      calories: calories,
       image: image,
-      serving: serving,
+      calories: calories,
+      servings: serving,
     };
     
 
-    props.callbackToAdd(newReceipes);
+    props.callbackToUpdate(newReceipes);
 
     setName("");
     setCalories("");
@@ -35,7 +40,7 @@ function AddNewRec(props) {
             <input
               type="text"
               name="rcName"
-              placeholder="Receipe Name"
+              placeholder={receipeName}
               value={name}
               required={true}
               onChange={(e) => {
@@ -48,7 +53,7 @@ function AddNewRec(props) {
             <input
               type="number"
               name="rcCalories"
-              placeholder="Calories"
+              placeholder={receipeCal}
               min={1}
               max={500}
               value={calories}
@@ -63,7 +68,7 @@ function AddNewRec(props) {
             <input
               type="text"
               name="rcImage"
-              placeholder="Image Url"
+              placeholder={receipeImage}
               value={image}
               onChange={(e) => {
                 setImage(e.target.value);
@@ -75,7 +80,7 @@ function AddNewRec(props) {
             <input
               type="text"
               name="rcServings"
-              placeholder="Servings"
+              placeholder={receipeServ}
               min={1}
               max={20}
               value={serving}
@@ -98,4 +103,4 @@ function AddNewRec(props) {
   );
 }
 
-export default AddNewRec;
+export default UpdateRec;
