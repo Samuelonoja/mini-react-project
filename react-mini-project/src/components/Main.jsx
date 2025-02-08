@@ -13,6 +13,9 @@ import ErrorPage404 from "./ErrorPage404";
 function Main() {
   const [displayVariable, setDisplayVariable] = useState(ReceipeArr);
   const [name, setName] = useState("");
+  const [calories, setCalories] = useState("");
+  const [image, setImage] = useState("");
+  const [serving, setServing] = useState("");
 
   const RemoveReceipe = (id) => {
     const filtteredReceipe = displayVariable.filter(function (element) {
@@ -24,15 +27,29 @@ function Main() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newReceipes = {
-      name: name
-    }
+
     
-    const newReceipeList = [newReceipes, ...displayVariable]
+    const receipeId = displayVariable.map((receipe) => receipe.id)
+    const maxReceipeId = Math.max(...receipeId);
+    const nextReceipeId = maxReceipeId + 1;
+    console.log(nextReceipeId);
+
+    const newReceipes = {
+      id: nextReceipeId,
+      name: name,
+      calories: calories,
+      image: image,
+      serving: serving,
+    };
+
+    const newReceipeList = [newReceipes, ...displayVariable];
 
     setDisplayVariable(newReceipeList);
 
-    setName("")
+    setName("");
+    setCalories("");
+    setImage("");
+    setServing("");
   };
 
   return (
@@ -73,22 +90,67 @@ function Main() {
                 className=" p-6 rounded-lg shadow-lg "
               >
                 <label>
+                  <input
+                    type="text"
+                    name="rcName"
+                    placeholder="Receipe Name"
+                    value={name}
+                    required={true}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </label>
+
+                <label>
                 <input
-                  type="text"
-                  name="rcName"
-                  placeholder="Receipe Name"
-                  value={name}
-                  onChange={(e) => {setName(e.target.value)}}
+                  type="number"
+                  name="rcCalories"
+                  placeholder="Calories"
+                  min={1}
+                  max={500}
+                  value={calories}
+                  required={true}
+                  onChange={(e) => {
+                    setCalories(e.target.value);
+                  }}
                 />
                 </label>
-              
-                <input type="number" name="rcCalories" placeholder="Calories" />
-                <input type="text" name="rcImage" placeholder="Image Url" />
-                <input type="text" name="rcServings" placeholder="Servings" />
+               
+
+                <label>
+                <input
+                  type="text"
+                  name="rcImage"
+                  placeholder="Image Url"
+                  value={image}
+                  onChange={(e) => {
+                    setImage(e.target.value);
+                  }}
+                />
+                </label>
+                
+
+                <label>
+                <input
+                  type="text"
+                  name="rcServings"
+                  placeholder="Servings"
+                  min={1}
+                  max={20}
+                  value={serving}
+                  required={true}
+                  onChange={(e) => {
+                    setServing(e.target.value);
+                  }}
+                />
+                </label>
+                
                 <button className="text-white">Submit</button>
               </form>
             </div>
           </section>
+
         </div>
 
         <Routes>
