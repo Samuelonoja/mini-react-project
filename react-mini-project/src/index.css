@@ -8,7 +8,13 @@
 
   @layer base {
     button {
-      @apply text-lg; /* Apply small text size to all <button> elements */
+      @apply text-lg;
     }
+  }
+
+    @layer base {
+      input {
+        @apply w-full p-2 border border-gray-300 rounded-xl mb-4; 
+      }
   }
   

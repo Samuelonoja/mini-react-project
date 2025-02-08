@@ -13,11 +13,6 @@ function Navbar(props) {
     <button>Search something here...</button>
 
       </div>
-    <div className='flex items-center'>
-      <Link to='/addreceipe'>
-      <button>Add Receipe</button>
-      </Link>
-    </div>
     </div>
     </>
   )
