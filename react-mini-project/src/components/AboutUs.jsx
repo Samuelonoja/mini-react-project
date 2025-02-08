@@ -1,8 +1,13 @@
 import React from 'react'
 
-function AboutUs() {
+function AboutUs(props) {
+
   return (
-    <div>About Us Page</div>
+    <>
+    <div>This is the About Us Page</div>
+    <h1> Title: {props.title}</h1>
+    
+    </>
   )
 }
 

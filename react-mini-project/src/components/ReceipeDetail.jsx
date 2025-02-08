@@ -9,7 +9,11 @@ function ReceipeDetail(props) {
         return receipeObj.Id === parseInt(receipeId)
     });
   return (
-    <div>ReceipeDetail {receipeId}</div>
+    <div> 
+      <h2>
+        Hello I will work on this now!
+      </h2>
+     </div>
     
   )
 }
